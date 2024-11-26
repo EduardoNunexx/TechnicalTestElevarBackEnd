@@ -19,7 +19,7 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @Column(length = 500)
+    @Column(length = 200)
     private String description;
 
     @Column(nullable = false)
