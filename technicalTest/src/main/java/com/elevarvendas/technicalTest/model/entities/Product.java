@@ -42,7 +42,7 @@ public class Product {
 
     @ManyToMany
     @JoinTable(name = "product_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Categories> category;
+    private List<Category> category;
 
     @Column(name = "stock_quantity")
     private Integer stockQuantity;
@@ -122,11 +122,11 @@ public class Product {
         this.photos = photos;
     }
 
-    public List<Categories> getCategories() {
+    public List<Category> getCategories() {
         return category;
     }
 
-    public void setCategories(List<Categories> categoria) {
+    public void setCategories(List<Category> categoria) {
         this.category = categoria;
     }
 

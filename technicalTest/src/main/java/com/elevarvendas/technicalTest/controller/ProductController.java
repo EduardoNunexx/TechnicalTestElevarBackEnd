@@ -1,8 +1,8 @@
 package com.elevarvendas.technicalTest.controller;
 
-import com.elevarvendas.technicalTest.dto.product.ProductRequestDTO;
 import com.elevarvendas.technicalTest.dto.product.ProductResponseDTO;
-import com.elevarvendas.technicalTest.model.services.ProductServices;
+import com.elevarvendas.technicalTest.dto.product.ProductRequestDTO;
+import com.elevarvendas.technicalTest.model.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +14,9 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final ProductServices productService;
+    private final ProductService productService;
 
-    public ProductController(ProductServices productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -36,9 +36,7 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> updateProduct(
-            @PathVariable Long id,
-            @Valid @RequestBody ProductRequestDTO productRequestDTO) {
+    public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequestDTO productRequestDTO) {
         ProductResponseDTO updatedProduct = productService.updateProduct(id, productRequestDTO);
         return ResponseEntity.ok(updatedProduct);
     }

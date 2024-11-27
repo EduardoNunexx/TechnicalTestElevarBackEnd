@@ -1,9 +1,7 @@
 package com.elevarvendas.technicalTest.dto.product;
 
 import com.elevarvendas.technicalTest.enums.Status;
-import com.elevarvendas.technicalTest.model.entities.Categories;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import com.elevarvendas.technicalTest.model.entities.Category;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -13,17 +11,27 @@ import java.util.List;
 
 public class ProductRequestDTO implements Serializable {
     private static final long serialVersionUID= 1L;
-    private String code;
-    private String description;
-    private Long id;
-    private BigDecimal promotionalPrice;
-    private Boolean onSale;
-    private Integer stockQuantity;
-    private Status status;
     private String title;
+
+    private String code;
+    @Size(max = 200)
+    private String description;
+
+    @NotNull
     private BigDecimal price;
-    private List<Categories> category;
-    private Boolean emphasis;
+
+    private BigDecimal promotionalPrice;
+
+    @NotNull
+    private Status status;
+
+    private Boolean onSale;
+
     private List<String> photos;
 
+    private List<Category> category;
+    @NotNull
+    private Integer stockQuantity;
+
+    private Boolean emphasis;
 }

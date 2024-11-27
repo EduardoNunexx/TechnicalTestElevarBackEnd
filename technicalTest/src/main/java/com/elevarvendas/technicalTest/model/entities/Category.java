@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "categories")
-public class Categories {
+public class Category {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer id;
@@ -16,7 +16,7 @@ public class Categories {
 
         @OneToMany(cascade = CascadeType.ALL)
         @JoinColumn(name = "parent_id")
-        private List<Categories> subCategories;
+        private List<Category> subCategories;
 
         public Integer getId() {
             return id;
@@ -34,11 +34,11 @@ public class Categories {
             this.description = description;
         }
 
-        public List<Categories> getSubCategories() {
+        public List<Category> getSubCategories() {
             return subCategories;
         }
 
-        public void setSubCategories(List<Categories> subCategories) {
+        public void setSubCategories(List<Category> subCategories) {
             this.subCategories = subCategories;
         }
 }

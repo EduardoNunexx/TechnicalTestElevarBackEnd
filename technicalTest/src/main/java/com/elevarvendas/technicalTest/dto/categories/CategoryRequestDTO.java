@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
-public class CategoriesRequestDTO implements Serializable {
+public class CategoryRequestDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     @NotBlank
     @Size(max = 100)

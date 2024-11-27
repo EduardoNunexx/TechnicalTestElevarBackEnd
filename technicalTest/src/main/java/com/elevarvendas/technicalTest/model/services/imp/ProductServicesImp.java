@@ -1,13 +1,13 @@
 package com.elevarvendas.technicalTest.model.services.imp;
 
-import com.elevarvendas.technicalTest.dto.product.ProductRequestDTO;
 import com.elevarvendas.technicalTest.dto.product.ProductResponseDTO;
+import com.elevarvendas.technicalTest.dto.product.ProductRequestDTO;
 import com.elevarvendas.technicalTest.exceptions.DatabaseOperationException;
 import com.elevarvendas.technicalTest.exceptions.ResourceNotFoundException;
 import com.elevarvendas.technicalTest.mapper.Mapper;
 import com.elevarvendas.technicalTest.model.entities.Product;
 import com.elevarvendas.technicalTest.model.repository.ProductRepository;
-import com.elevarvendas.technicalTest.model.services.ProductServices;
+import com.elevarvendas.technicalTest.model.services.ProductService;
 import jakarta.persistence.PersistenceException;
 import org.hibernate.MappingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 //todo review about these try catch
 @Service
-public class ProductServicesImp implements ProductServices {
+public class ProductServicesImp implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -35,7 +35,7 @@ public class ProductServicesImp implements ProductServices {
     public List<ProductResponseDTO> getAllProducts() {
         try {
             List<Product> products = productRepository.findAll();
-            return mapper.convertToList(products,ProductResponseDTO.class);
+            return mapper.convertToList(products, ProductResponseDTO.class);
         }catch (MappingException mappingException){
             throw new MappingException("Internal server error");
         } catch (PersistenceException persistenceException){

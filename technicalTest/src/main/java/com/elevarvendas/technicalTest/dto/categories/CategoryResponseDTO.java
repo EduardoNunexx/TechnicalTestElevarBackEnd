@@ -3,11 +3,11 @@ package com.elevarvendas.technicalTest.dto.categories;
 import java.io.Serializable;
 import java.util.List;
 
-public class CategoriesResponseDTO implements Serializable {
+public class CategoryResponseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
     private String description;
-    private List<CategoriesRequestDTO> subcategories;
+    private List<CategoryRequestDTO> subcategories;
 
     public Long getId() {
         return id;
@@ -25,11 +25,11 @@ public class CategoriesResponseDTO implements Serializable {
         this.description = description;
     }
 
-    public List<CategoriesRequestDTO> getSubcategories() {
+    public List<CategoryRequestDTO> getSubcategories() {
         return subcategories;
     }
 
-    public void setSubcategories(List<CategoriesRequestDTO> subcategories) {
+    public void setSubcategories(List<CategoryRequestDTO> subcategories) {
         this.subcategories = subcategories;
     }
 }
