@@ -29,4 +29,9 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 .status(HttpStatus.NOT_FOUND)
                 .body(buildResponseDTO(webRequest,resourceNotFoundException));
     }
+    @ExceptionHandler(DatabaseOperationException.class)
+    public ResponseEntity<ExceptionResponseDTO> handlerDatabaseOperationException(WebRequest webRequest, DatabaseOperationException databaseOperationException){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(buildResponseDTO(webRequest,databaseOperationException));
+    }
+
 }
