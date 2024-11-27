@@ -4,8 +4,10 @@ import com.elevarvendas.technicalTest.dto.product.ProductResponseDTO;
 import com.elevarvendas.technicalTest.dto.product.ProductRequestDTO;
 import com.elevarvendas.technicalTest.model.services.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,13 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-
-    private final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
-
+    @Autowired
+    private ProductService productService;
     @PostMapping
     public ResponseEntity<ProductResponseDTO> createProduct(@Valid @RequestBody ProductRequestDTO productRequestDTO) {
         ProductResponseDTO createdProduct = productService.saveProduct(productRequestDTO);

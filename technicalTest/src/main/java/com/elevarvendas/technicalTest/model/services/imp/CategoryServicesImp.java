@@ -55,7 +55,7 @@ public class CategoryServicesImp implements CategoryService {
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found " + id));
 
         mapper.mapToObject(categoryRequestDTO, existingCategory);
-
+        //todo verify this
         // Subcategorias não são atualizadas diretamente neste método
         existingCategory.setSubCategories(existingCategory.getSubCategories());
 
@@ -67,7 +67,7 @@ public class CategoryServicesImp implements CategoryService {
     @Override
     public void deleteCategory(Integer id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Categoriy not found" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found" + id));
         categoryRepository.delete(category);
     }
 }
