@@ -1,6 +1,5 @@
 package com.elevarvendas.technicalTest.model.entities;
 
-import com.elevarvendas.technicalTest.enums.Status;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -28,9 +27,8 @@ public class Product {
     @Column(name = "promotional_price")
     private BigDecimal promotionalPrice;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status;
+    private Boolean status;
 
     @Column(name = "on_sale")
     private Boolean onSale;
@@ -98,11 +96,11 @@ public class Product {
         this.promotionalPrice = promotionalPrice;
     }
 
-    public Status getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

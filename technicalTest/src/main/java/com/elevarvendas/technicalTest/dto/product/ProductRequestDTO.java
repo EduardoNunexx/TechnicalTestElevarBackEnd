@@ -1,6 +1,5 @@
 package com.elevarvendas.technicalTest.dto.product;
 
-import com.elevarvendas.technicalTest.enums.Status;
 import com.elevarvendas.technicalTest.model.entities.Category;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,7 +22,7 @@ public class ProductRequestDTO implements Serializable {
     private BigDecimal promotionalPrice;
 
     @NotNull(message = "The status cant be null")
-    private Status status;
+    private Boolean status;
 
     private Boolean onSale;
 
@@ -75,11 +74,11 @@ public class ProductRequestDTO implements Serializable {
         this.promotionalPrice = promotionalPrice;
     }
 
-    public Status getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

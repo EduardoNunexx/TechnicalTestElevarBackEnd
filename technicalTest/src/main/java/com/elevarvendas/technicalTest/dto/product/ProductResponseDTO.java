@@ -1,6 +1,5 @@
 package com.elevarvendas.technicalTest.dto.product;
 
-import com.elevarvendas.technicalTest.enums.Status;
 import com.elevarvendas.technicalTest.model.entities.Category;
 
 import java.io.Serializable;
@@ -15,7 +14,7 @@ public class ProductResponseDTO implements Serializable {
     private BigDecimal promotionalPrice;
     private Boolean onSale;
     private Integer stockQuantity;
-    private Status status;
+    private Boolean status;
     private String title;
     private BigDecimal price;
     private List<Category> category;
@@ -70,11 +69,11 @@ public class ProductResponseDTO implements Serializable {
         this.stockQuantity = stockQuantity;
     }
 
-    public Status getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
