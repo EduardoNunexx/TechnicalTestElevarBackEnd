@@ -5,12 +5,15 @@ import com.elevarvendas.technicalTest.dto.product.ProductRequestDTO;
 import com.elevarvendas.technicalTest.exceptions.DatabaseOperationException;
 import com.elevarvendas.technicalTest.exceptions.ResourceNotFoundException;
 import com.elevarvendas.technicalTest.mapper.Mapper;
+import com.elevarvendas.technicalTest.model.entities.Category;
 import com.elevarvendas.technicalTest.model.entities.Product;
 import com.elevarvendas.technicalTest.model.repository.ProductRepository;
 import com.elevarvendas.technicalTest.model.services.ProductService;
 import jakarta.persistence.PersistenceException;
 import org.hibernate.MappingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,15 +30,15 @@ public class ProductServicesImp implements ProductService {
     public ProductResponseDTO saveProduct(ProductRequestDTO productRequestDTO) {
         Product product = mapper.convertToObject(productRequestDTO, Product.class);
         Product savedProduct = productRepository.save(product);
-
         return mapper.convertToObject(savedProduct, ProductResponseDTO.class);
     }
 
     @Override
-    public List<ProductResponseDTO> getAllProducts() {
+    public Page<ProductResponseDTO> getAllProducts(Pageable pageable) {
         try {
-            List<Product> products = productRepository.findAll();
-            return mapper.convertToList(products, ProductResponseDTO.class);
+            Page<Product> products = productRepository.findAll(pageable);
+            Page<ProductResponseDTO> page = products.map(x->mapper.convertToObject(x,ProductResponseDTO.class));
+            return page;
         }catch (MappingException mappingException){
             throw new MappingException("Internal server error");
         } catch (PersistenceException persistenceException){

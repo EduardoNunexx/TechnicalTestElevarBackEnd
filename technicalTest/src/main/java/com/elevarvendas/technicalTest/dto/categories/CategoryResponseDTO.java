@@ -1,19 +1,22 @@
 package com.elevarvendas.technicalTest.dto.categories;
 
+import com.elevarvendas.technicalTest.model.entities.Category;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class CategoryResponseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Long id;
+    private Integer id;
     private String description;
-    private List<CategoryRequestDTO> subcategories;
+    private Integer parentCategoryId;
+    private List<CategoryResponseDTO> subcategories;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -25,11 +28,19 @@ public class CategoryResponseDTO implements Serializable {
         this.description = description;
     }
 
-    public List<CategoryRequestDTO> getSubcategories() {
+    public List<CategoryResponseDTO> getSubcategories() {
         return subcategories;
     }
 
-    public void setSubcategories(List<CategoryRequestDTO> subcategories) {
+    public void setSubcategories(List<CategoryResponseDTO> subcategories) {
         this.subcategories = subcategories;
+    }
+
+    public Integer getParentCategoryId() {
+        return parentCategoryId;
+    }
+
+    public void setParentCategoryId(Category parentCategoryId) {
+        this.parentCategoryId = parentCategoryId.getId();
     }
 }

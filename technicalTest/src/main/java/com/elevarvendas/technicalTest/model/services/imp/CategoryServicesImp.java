@@ -2,6 +2,7 @@ package com.elevarvendas.technicalTest.model.services.imp;
 
 import com.elevarvendas.technicalTest.dto.categories.CategoryRequestDTO;
 import com.elevarvendas.technicalTest.dto.categories.CategoryResponseDTO;
+import com.elevarvendas.technicalTest.dto.categories.SubCategoryDto;
 import com.elevarvendas.technicalTest.exceptions.ResourceNotFoundException;
 import com.elevarvendas.technicalTest.mapper.Mapper;
 import com.elevarvendas.technicalTest.model.entities.Category;
@@ -25,10 +26,6 @@ public class CategoryServicesImp implements CategoryService {
     @Override
     public CategoryResponseDTO createCategory(CategoryRequestDTO categoryRequestDTO) {
         Category category = mapper.convertToObject(categoryRequestDTO, Category.class);
-        //todo verificar isso aqui
-        // Subcategorias não podem ser criadas diretamente no request, então são ignoradas
-        category.setSubCategories(null);
-
         Category savedCategory = categoryRepository.save(category);
         return mapper.convertToObject(savedCategory, CategoryResponseDTO.class);
     }
@@ -70,4 +67,86 @@ public class CategoryServicesImp implements CategoryService {
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found" + id));
         categoryRepository.delete(category);
     }
+    @Override
+    public SubCategoryDto createSubCategory(Integer parentId, CategoryRequestDTO subcategoryRequestDTO){
+        Category parentCategory = categoryRepository.findById(parentId).orElseThrow(()-> new ResourceNotFoundException("Category not found" + parentId));
+        Category subCategory =  mapper.convertToObject(subcategoryRequestDTO,Category.class);
+        //mudei
+        parentCategory.getSubCategories().add(subCategory);
+
+        subCategory.setParentCategory(parentCategory);
+        categoryRepository.save(subCategory);
+
+        SubCategoryDto subCategoryDto = mapper.convertToObject(subCategory, SubCategoryDto.class);
+        subCategoryDto.setParentCategoryId(subCategory.getId());
+        if (subCategoryDto.getSubcategories()!=null) {
+            subCategoryDto.setSubcategories(subCategory.getSubCategories().stream().map(x -> mapper.convertToObject(x, SubCategoryDto.class)).collect(Collectors.toList()));
+        }
+        return subCategoryDto;
+    }
+
+
+    /*private CategoryHierarchDTO categoryHierarch(Integer parentId, CategoryRequestDTO subcategoryRequestDTO) {
+        // Verifica se a categoria pai existe
+        Category parentCategory = categoryRepository.findById(parentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + parentId));
+
+        // Converte o DTO da nova subcategoria para a entidade Category
+        Category newChildCategory = mapper.convertToObject(subcategoryRequestDTO, Category.class);
+        newChildCategory.setParentCategory(parentCategory);
+
+        // Salva a nova subcategoria no banco de dados
+        Category savedChildCategory = categoryRepository.save(newChildCategory);
+
+        // Adiciona a nova subcategoria à lista de subcategorias existentes
+        List<Category> existingSubCategories = parentCategory.getSubCategories();
+        if (existingSubCategories == null) {
+            existingSubCategories = new ArrayList<>();
+        }
+        existingSubCategories.add(savedChildCategory);
+        parentCategory.setSubCategories(existingSubCategories);
+
+        // Atualiza a entidade do pai para refletir as mudanças no banco
+        categoryRepository.save(parentCategory);
+
+        // Reconstroi a hierarquia de categorias
+        List<Category> categoryHierarchy = new ArrayList<>();
+        Category currentCategory = parentCategory;
+
+        while (currentCategory != null) {
+            categoryHierarchy.add(currentCategory);
+            currentCategory = currentCategory.getParentCategory();
+        }
+
+        // Reverte a hierarquia para começar da raiz
+        Collections.reverse(categoryHierarchy);
+
+        // Constrói o DTO hierárquico
+        CategoryHierarchDTO rootCategoryDto = null;
+        CategoryHierarchDTO previousDto = null;
+
+        for (Category category : categoryHierarchy) {
+            CategoryHierarchDTO currentDto = mapper.convertToObject(category, CategoryHierarchDTO.class);
+
+            if (previousDto != null) {
+                currentDto.setSubCategory(previousDto);
+            }
+
+            previousDto = currentDto;
+
+            // Define o rootCategoryDto apenas na primeira iteração
+            if (rootCategoryDto == null) {
+                rootCategoryDto = currentDto;
+            }
+        }
+
+        // Conecta a nova subcategoria no final da hierarquia
+        if (previousDto != null) {
+            previousDto.setSubCategory(mapper.convertToObject(savedChildCategory, CategoryHierarchDTO.class));
+        }
+
+        return rootCategoryDto;
+    }
+*/
+
 }

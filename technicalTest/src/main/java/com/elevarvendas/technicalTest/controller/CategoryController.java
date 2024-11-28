@@ -3,6 +3,7 @@ package com.elevarvendas.technicalTest.controller;
 
 import com.elevarvendas.technicalTest.dto.categories.CategoryRequestDTO;
 import com.elevarvendas.technicalTest.dto.categories.CategoryResponseDTO;
+import com.elevarvendas.technicalTest.dto.categories.SubCategoryDto;
 import com.elevarvendas.technicalTest.model.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/category")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
@@ -46,5 +47,12 @@ public class CategoryController {
     public ResponseEntity<Void> deleteCategory(@PathVariable Integer id) {
         categoryService.deleteCategory(id);
         return ResponseEntity.noContent().build();
+    }
+    @PostMapping("/{parentId}/subcategories")
+    public ResponseEntity<SubCategoryDto> createSubCategory(
+            @PathVariable Integer parentId,
+            @RequestBody @Valid CategoryRequestDTO subCategoryRequestDTO) {
+        SubCategoryDto updatedCategory = categoryService.createSubCategory(parentId, subCategoryRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedCategory);
     }
 }

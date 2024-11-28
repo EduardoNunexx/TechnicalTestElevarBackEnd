@@ -145,5 +145,13 @@ public class Product {
     public void setEmphasis(Boolean emphasis) {
         this.emphasis = emphasis;
     }
+
+    public List<Category> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<Category> category) {
+        this.category = category;
+    }
 }
 
