@@ -1,5 +1,6 @@
 package com.elevarvendas.technicalTest.model.services.imp;
 
+import com.elevarvendas.technicalTest.dto.page.ProductsResponsePageDTO;
 import com.elevarvendas.technicalTest.dto.product.ProductResponseDTO;
 import com.elevarvendas.technicalTest.dto.product.ProductRequestDTO;
 import com.elevarvendas.technicalTest.exceptions.DatabaseOperationException;
@@ -34,11 +35,16 @@ public class ProductServicesImp implements ProductService {
     }
 
     @Override
-    public Page<ProductResponseDTO> getAllProducts(Pageable pageable) {
+    public ProductsResponsePageDTO getAllProducts(Pageable pageable) {
         try {
             Page<Product> products = productRepository.findAll(pageable);
             Page<ProductResponseDTO> page = products.map(x->mapper.convertToObject(x,ProductResponseDTO.class));
-            return page;
+            ProductsResponsePageDTO productsResponsePageDTO = new ProductsResponsePageDTO();
+            productsResponsePageDTO.setData(page.getContent());
+            productsResponsePageDTO.setPage(page.getNumber());
+            productsResponsePageDTO.setTotalPages(page.getTotalPages());
+            productsResponsePageDTO.setTotal(page.getTotalElements());
+            return productsResponsePageDTO;
         }catch (MappingException mappingException){
             throw new MappingException("Internal server error");
         } catch (PersistenceException persistenceException){

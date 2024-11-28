@@ -1,5 +1,6 @@
 package com.elevarvendas.technicalTest.controller;
 
+import com.elevarvendas.technicalTest.dto.page.ProductsResponsePageDTO;
 import com.elevarvendas.technicalTest.dto.product.ProductResponseDTO;
 import com.elevarvendas.technicalTest.dto.product.ProductRequestDTO;
 import com.elevarvendas.technicalTest.model.services.ProductService;
@@ -26,8 +27,8 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
     @GetMapping
-    public ResponseEntity<Page<ProductResponseDTO>> getAllProducts(@PageableDefault(size = 10, page = 0,direction = Sort.Direction.ASC,sort = {"title"}) Pageable pageable){
-        Page<ProductResponseDTO> products = productService.getAllProducts(pageable);
+    public ResponseEntity<ProductsResponsePageDTO> getAllProducts(@PageableDefault(size = 10, page = 0,direction = Sort.Direction.ASC,sort = {"title"}) Pageable pageable){
+        ProductsResponsePageDTO products = productService.getAllProducts(pageable);
         return ResponseEntity.ok(products);
     }
     @GetMapping("/{id}")
