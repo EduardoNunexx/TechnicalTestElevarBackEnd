@@ -38,10 +38,12 @@ public class ProductServicesImp implements ProductService {
     }
 
     @Override
-    public ProductsResponsePageDTO getAllProducts(Pageable pageable, String text) {
+    public ProductsResponsePageDTO getAllProducts(Pageable pageable, String text, Boolean status, Boolean onSale){
         try {
-        Specification<Product> specification = ProductSpec.filterByText(text);
-        Page<Product> products = productRepository.findAll(specification,pageable);
+        Specification<Product> specification = Specification.where(ProductSpec.filterByText(text))
+                .and(ProductSpec.hasStatus(status))
+                .and(ProductSpec.isOnSale(onSale));
+            Page<Product> products = productRepository.findAll(specification,pageable);
         Page<ProductResponseDTO> page = products.map(x->mapper.convertToObject(x,ProductResponseDTO.class));
             ProductsResponsePageDTO productsResponsePageDTO = new ProductsResponsePageDTO();
             productsResponsePageDTO.setData(page.getContent());
@@ -93,4 +95,5 @@ public class ProductServicesImp implements ProductService {
         }
 
     }
+
 }

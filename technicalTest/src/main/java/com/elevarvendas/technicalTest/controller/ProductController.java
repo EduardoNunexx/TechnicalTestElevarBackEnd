@@ -31,10 +31,11 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<ProductsResponsePageDTO> getAllProducts(
-            @PageableDefault(size = 10, page = 0,
-                    direction = Sort.Direction.ASC, sort = {"title"}) Pageable pageable,
-                    @RequestParam(required = false) String text) {
-        return ResponseEntity.ok(productService.getAllProducts(pageable, text));
+            @PageableDefault(size = 10, page = 0,direction = Sort.Direction.ASC, sort = {"title"}) Pageable pageable,
+            @RequestParam(required = false) String text,
+            @RequestParam(required = false) Boolean status,
+            @RequestParam(required = false) Boolean onSale) {
+        return ResponseEntity.ok(productService.getAllProducts(pageable, text,status,onSale));
     }
 
     @GetMapping("/{id}")
