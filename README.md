@@ -85,6 +85,14 @@ GET /api/products - Retrieve a paginated list of products with optional filters.
 POST /api/products - Create a new product.
 
 ```
+###Screenshots
+![image](https://github.com/user-attachments/assets/9d933f61-60b1-48a0-803b-79533de1f700)
+
+![image](https://github.com/user-attachments/assets/efdf20be-2d7a-4cb0-aae7-12ca80e90773)
+
+![image](https://github.com/user-attachments/assets/6ba88deb-10da-473d-b857-3dc673b56db1)
+
+![image](https://github.com/user-attachments/assets/ba2ccfeb-2f26-4f69-bbd2-387600e2ebf7)
 
 #### OpenAPI Documentation
 - To view the full API documentation, including endpoints and data schemas, open the Swagger UI at:
