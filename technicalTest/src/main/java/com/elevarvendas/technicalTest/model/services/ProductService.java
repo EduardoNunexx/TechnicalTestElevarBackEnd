@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductService {
     ProductResponseDTO saveProduct(ProductRequestDTO productRequestDTO);
     //todo change this when you'll add the pagination
-    ProductsResponsePageDTO getAllProducts(Pageable pageable);
+    ProductsResponsePageDTO getAllProducts(Pageable pageable, String text);
 
     ProductResponseDTO getProductById(Long id);
 

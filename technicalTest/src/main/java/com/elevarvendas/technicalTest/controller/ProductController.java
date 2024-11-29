@@ -33,8 +33,8 @@ public class ProductController {
     public ResponseEntity<ProductsResponsePageDTO> getAllProducts(
             @PageableDefault(size = 10, page = 0,
                     direction = Sort.Direction.ASC, sort = {"title"}) Pageable pageable,
-                    @RequestParam(required = false) String title) {
-        return ResponseEntity.ok(productService.getAllProducts(pageable));
+                    @RequestParam(required = false) String text) {
+        return ResponseEntity.ok(productService.getAllProducts(pageable, text));
     }
 
     @GetMapping("/{id}")
