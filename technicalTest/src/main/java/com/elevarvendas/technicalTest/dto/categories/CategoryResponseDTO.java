@@ -40,7 +40,7 @@ public class CategoryResponseDTO implements Serializable {
         return parentCategoryId;
     }
 
-    public void setParentCategoryId(Category parentCategoryId) {
-        this.parentCategoryId = parentCategoryId.getId();
+    public void setParentCategoryId(Integer parentCategoryId) {
+        this.parentCategoryId = parentCategoryId;
     }
 }

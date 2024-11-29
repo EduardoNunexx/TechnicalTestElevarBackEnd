@@ -75,10 +75,10 @@ public class CategoryServicesImp implements CategoryService {
         parentCategory.getSubCategories().add(subCategory);
 
         subCategory.setParentCategory(parentCategory);
-        categoryRepository.save(subCategory);
 
-        SubCategoryDto subCategoryDto = mapper.convertToObject(subCategory, SubCategoryDto.class);
-        subCategoryDto.setParentCategoryId(subCategory.getId());
+        categoryRepository.save(parentCategory);
+        SubCategoryDto subCategoryDto = mapper.convertToObject(categoryRepository.save(subCategory), SubCategoryDto.class);
+        subCategoryDto.setParentCategoryId(parentId);
         if (subCategoryDto.getSubcategories()!=null) {
             subCategoryDto.setSubcategories(subCategory.getSubCategories().stream().map(x -> mapper.convertToObject(x, SubCategoryDto.class)).collect(Collectors.toList()));
         }

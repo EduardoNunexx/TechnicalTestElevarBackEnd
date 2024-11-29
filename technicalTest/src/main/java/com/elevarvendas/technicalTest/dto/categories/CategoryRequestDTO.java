@@ -1,6 +1,7 @@
 package com.elevarvendas.technicalTest.dto.categories;
 import com.elevarvendas.technicalTest.model.entities.Category;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
