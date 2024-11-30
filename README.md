@@ -36,6 +36,8 @@ npm start
 
 ## Back-End
 Built with Java and PostgreSQL.
+![image](https://github.com/user-attachments/assets/a2c99a88-4da0-496d-a464-d62548c2237e)
+
 
 ### Installation
 #### Prerequisites
